@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -37,7 +38,15 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void deleteById(int id) {
-
+    public String deleteById(int id) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        User user = currentSession.get(User.class, id);
+        if(user == null){
+            throw new RuntimeException("user id no found");
+        }
+        currentSession.getTransaction().begin();
+        currentSession.remove(user);
+        currentSession.getTransaction().commit();
+        return "user deleted";
     }
 }

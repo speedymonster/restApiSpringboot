@@ -32,4 +32,15 @@ public class UserRestController {
         return user;
     }
 
+    @RequestMapping(path = "/user",method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public User updateUse(@RequestBody User user){
+        userService.save(user);
+        return user;
+    }
+
+    @DeleteMapping("/user/{id}")
+    public String deleteUser(@PathVariable int id){
+        return userService.deleteById(id);
+    }
+
 }
