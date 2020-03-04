@@ -3,9 +3,8 @@ package com.raulreyes.restApi.controller;
 import com.raulreyes.restApi.entity.User;
 import com.raulreyes.restApi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +17,19 @@ public class UserRestController {
 
     @GetMapping("/users")
     public List<User> findAll(){
-        userService.save(new User(1,"a","aa"));
-        return null;
+        return userService.findAll();
     }
+
+    @RequestMapping(path = "/user",method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public User addUser(@RequestBody User user){
+        userService.save(user);
+        return user;
+    }
+
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable int id){
+        User user = userService.findById(id);
+        return user;
+    }
+
 }

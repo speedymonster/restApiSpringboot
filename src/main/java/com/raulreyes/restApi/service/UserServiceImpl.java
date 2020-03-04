@@ -14,13 +14,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> findAll() {
-        List<User> listUsers = userDAO.findAll();
-        return listUsers;
+        return userDAO.findAll();
     }
 
     @Override
     public User findById(int id) {
-        return null;
+       User user = userDAO.findById(id);
+       return  user;
     }
 
     @Override

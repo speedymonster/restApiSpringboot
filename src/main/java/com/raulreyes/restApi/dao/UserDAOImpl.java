@@ -16,17 +16,18 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public List<User> findAll() {
+        System.out.println("ssss");
         Session currentSession = entityManager.unwrap(Session.class);
-        String hql = "FROM User";
+        String hql = "select u FROM User u";
         Query theQuery = currentSession.createQuery(hql, User.class);
         List<User> users = theQuery.getResultList();
-
         return users;
     }
 
     @Override
     public User findById(int id) {
-        return null;
+        Session currentSession = entityManager.unwrap(Session.class);
+        return  currentSession.get(User.class, id);
     }
 
     @Override
